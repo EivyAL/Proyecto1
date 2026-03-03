@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GymVisual.MainWindow"
+        Title="Gym Access" Height="450" Width="350"
+        Background="White">
+    
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="20">
+        <TextBlock Text="GYM LOGIN" FontSize="28" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+        
+        <TextBox x:Name="UserBox" Watermark="Usuario" Width="250"/>
+        <TextBox x:Name="PassBox" Watermark="Contraseña" PasswordChar="*" Width="250"/>
+        
+        <Button Content="INGRESAR" Click="OnLoginClick" Width="250" Background="Black" Foreground="White"/>
+        
+        <TextBlock x:Name="StatusText" Foreground="Gray" HorizontalAlignment="Center"/>
+    </StackPanel>
+</Window>
