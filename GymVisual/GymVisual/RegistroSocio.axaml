@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GymVisual.RegistroSocio"
+        Title="Registro de Nuevo Socio" 
+        Width="500" Height="600">
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="10">
+            <TextBlock Text="DATOS PERSONALES" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <TextBox x:Name="TxtClave" Watermark="Clave Única"/>
+            <TextBox x:Name="TxtNombre" Watermark="Nombre(s)"/>
+            <TextBox x:Name="TxtApp" Watermark="Apellido Paterno"/>
+            <TextBox x:Name="TxtApm" Watermark="Apellido Materno"/>
+            <TextBox x:Name="TxtEmail" Watermark="Email"/>
+            <TextBox x:Name="TxtOcupacion" Watermark="Ocupación"/>
+            <TextBox x:Name="TxtTelefono" Watermark="Teléfono"/>
+            <Button Content="GUARDAR" Click="OnGuardarClick" HorizontalAlignment="Stretch"/>
+            <TextBlock x:Name="StatusMsg" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
