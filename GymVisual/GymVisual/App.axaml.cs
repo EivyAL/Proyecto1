@@ -21,3 +21,6 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 }
+//git add .
+//git commit -m "Descripción de lo que cambiaste (ej: Diseño del menú principal)"
+//git push origin main

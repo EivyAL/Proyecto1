@@ -1,44 +1,30 @@
-using Avalonia.Controls;
-using Avalonia.Interactivity;
-using MySql.Data.MySqlClient;
-using System;
-
-namespace GymVisual; // Asegúrate que sea igual al x:Class del AXAML
-
-public partial class MainWindow : Window
+public void OnLoginClick(object sender, RoutedEventArgs e)
 {
-    public MainWindow()
+    try 
     {
-        InitializeComponent(); // Esto es generado automáticamente por Avalonia
-    }
-
-    public void OnLoginClick(object sender, RoutedEventArgs e)
-    {
-        string connStr = "server=localhost;database=ProyectoPrueba;user=root;password=Mysql";
-        try 
+        using (var conn = Database.GetConnection()) 
         {
-            using (var conn = new MySqlConnection(connStr)) 
+            conn.Open();
+            // Ajustado a tu tabla 'usuarios' y campos 'usuario'/'password'
+            string sql = "SELECT COUNT(*) FROM usuarios WHERE usuario=@u AND password=@p AND activo=TRUE";
+            var cmd = new MySqlCommand(sql, conn);
+            
+            cmd.Parameters.AddWithValue("@u", UserBox.Text);
+            cmd.Parameters.AddWithValue("@p", PassBox.Text);
+
+            if (Convert.ToInt32(cmd.ExecuteScalar()) > 0) 
             {
-                conn.Open();
-                var cmd = new MySqlCommand("SELECT COUNT(*) FROM Usuarios WHERE nombre=@u AND id=@p", conn);
-                
-                // Estos nombres deben existir en el archivo AXAML (Paso 1)
-                cmd.Parameters.AddWithValue("@u", UserBox.Text);
-                cmd.Parameters.AddWithValue("@p", PassBox.Text);
-
-                if (Convert.ToInt32(cmd.ExecuteScalar()) > 0) 
-                {
-                    StatusText.Text = "✅ Acceso Concedido";
-                } 
-                else 
-                {
-                    StatusText.Text = "❌ Datos incorrectos";
-                }
+                StatusText.Text = "✅ Acceso Concedido";
+                // Aquí podrías abrir la ventana del Menú Principal próximamente
+            } 
+            else 
+            {
+                StatusText.Text = "❌ Usuario o contraseña incorrectos";
             }
-        } 
-        catch (Exception ex) 
-        {
-            StatusText.Text = "Error: " + ex.Message;
         }
+    } 
+    catch (Exception ex) 
+    {
+        StatusText.Text = "Error de conexión: " + ex.Message;
     }
 }
