@@ -69,4 +69,4 @@ public partial class RegistroSocio : Window
     {
         TxtClave.Text = TxtNombre.Text = TxtApp.Text = TxtApm.Text = TxtEmail.Text = TxtOcupacion.Text = TxtTelefono.Text = "";
     }
-}
+} 
