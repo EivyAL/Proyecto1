@@ -20,7 +20,6 @@ public partial class MainWindow : Window
             {
                 conn.Open();
                 
-                // Consulta ajustada a tu base de datos GFLTR
                 string sql = "SELECT COUNT(*) FROM usuarios WHERE usuario=@u AND password=@p AND activo=TRUE";
                 var cmd = new MySqlCommand(sql, conn);
                 
@@ -31,19 +30,19 @@ public partial class MainWindow : Window
                 {
                     StatusText.Text = "✅ Acceso Concedido";
 
-                    // Lógica para abrir la ventana de Registro de Socios
-                    var registro = new RegistroSocio();
-                    registro.Show();
+                    // 1. Abrimos el Menú Principal (Este será el centro de todo)
+                    var menu = new MenuPrincipal();
+                    menu.Show();
 
-                    // Cerramos la ventana de Login
+                    // 2. Cerramos el Login (Ya no lo necesitamos)
                     this.Close();
                 } 
                 else 
                 {
                     StatusText.Text = "❌ Usuario o contraseña incorrectos";
                 }
-            } // Aquí se cierra el using
-        } // Aquí se cierra el try
+            } 
+        } 
         catch (Exception ex) 
         {
             StatusText.Text = "Error de conexión: " + ex.Message;

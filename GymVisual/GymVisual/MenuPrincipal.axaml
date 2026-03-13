@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GymVisual.MenuPrincipal"
+        Title="Active Control - Panel de Administración"
+        Width="1000" Height="700" WindowStartupLocation="CenterScreen">
+
+    <Grid ColumnDefinitions="250, *">
+        <StackPanel Grid.Column="0" Background="#1A1A1A" Spacing="5">
+            <TextBlock Text="ACTIVE CONTROL" Foreground="White" FontSize="20" 
+                       FontWeight="Bold" Margin="20" HorizontalAlignment="Center"/>
+            
+            <Separator Background="#333333" Margin="10,0"/>
+
+            <Button Content="🏠 Inicio" Click="OnInicioClick" Classes="MenuBtn"/>
+            <Button Content="👥 Socios" Click="OnSociosClick" Classes="MenuBtn"/>
+            <Button Content="📦 Inventario" Click="OnInventarioClick" Classes="MenuBtn"/>
+            <Button Content="💰 Caja / Pagos" Click="OnCajaClick" Classes="MenuBtn"/>
+            
+            <Border Height="300"/>
+            <Button Content="🚪 Cerrar Sesión" Click="OnLogoutClick" Background="#CC0000" Foreground="White" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <Border Grid.Column="1" Background="#F5F5F5" Padding="20">
+            <ContentControl x:Name="MainContent">
+                <TextBlock Text="Bienvenido al Sistema Gym Felter" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </ContentControl>
+        </Border>
+    </Grid>
+
+    <Window.Styles>
+        <Style Selector="Button.MenuBtn">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,0"/>
+        </Style>
+    </Window.Styles>
+</Window>
