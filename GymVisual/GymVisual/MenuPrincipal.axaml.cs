@@ -14,9 +14,8 @@ public partial class MenuPrincipal : Window
 
     private void OnSociosClick(object sender, RoutedEventArgs e)
     {
-        // Por ahora, como ya tienes la ventana de registro, podemos abrirla:
-        var regSocio = new RegistroSocio();
-        regSocio.Show();
+        // Esto quita el texto de bienvenida y pone la tabla
+    MainContent.Content = new ListaSocios();
     }
 
     private void OnLogoutClick(object sender, RoutedEventArgs e)

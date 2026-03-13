@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GymVisual.ListaSocios">
+    
+    <Border Background="White" CornerRadius="10" Padding="20">
+        <StackPanel Spacing="15">
+            <TextBlock Text="GESTIÓN DE SOCIOS" 
+                       FontSize="22" 
+                       FontWeight="Bold" 
+                       Foreground="#1A1A1A"
+                       HorizontalAlignment="Center"/>
+            
+            <Separator Background="#E0E0E0"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBox x:Name="TxtBuscar" 
+                         Width="350" 
+                         Watermark="Buscar por nombre o clave (Ej: G-001)..."
+                         VerticalContentAlignment="Center"/>
+                <Button Content="🔍 BUSCAR" 
+                        Background="#1A1A1A" 
+                        Foreground="White"
+                        Padding="15,5"
+                        Click="OnBuscarClick"/>
+                <Button Content="➕ NUEVO SOCIO" 
+                        Background="#4CAF50" 
+                        Foreground="White"
+                        Padding="15,5"
+                        Click="OnNuevoSocioClick"/>
+            </StackPanel>
+
+            <DataGrid x:Name="GridSocios" 
+                      Height="450" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True"
+                      GridLinesVisibility="All" 
+                      BorderThickness="1" 
+                      BorderBrush="#D0D0D0"
+                      Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CLAVE" Binding="{Binding Clave}" Width="100"/>
+                    <DataGridTextColumn Header="NOMBRE" Binding="{Binding Nombre}" Width="150"/>
+                    <DataGridTextColumn Header="APELLIDO P" Binding="{Binding ApellidoP}" Width="150"/>
+                    <DataGridTextColumn Header="APELLIDO M" Binding="{Binding ApellidoM}" Width="150"/>
+                    <DataGridTextColumn Header="SEXO" Binding="{Binding Sexo}" Width="60"/>
+                    <DataGridTextColumn Header="EMAIL" Binding="{Binding Email}" Width="200"/>
+                    <DataGridTextColumn Header="EMPRESA" Binding="{Binding Empresa}" Width="150"/>
+                    <DataGridTextColumn Header="OCUPACIÓN" Binding="{Binding Ocupacion}" Width="150"/>
+                    <DataGridTextColumn Header="TELÉFONO" Binding="{Binding Telefono}" Width="120"/>
+                    <DataGridTextColumn Header="ESTATUS" Binding="{Binding Estatus}" Width="80"/>
+                    <DataGridTemplateColumn Header="ACCIONES" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
+                                    <Button Content="✏️" 
+                                            Background="#FFC107" 
+                                            Click="OnEditarClick"
+                                            ToolTip.Tip="Editar Socio"/>
+                                    <Button Content="🗑️" 
+                                            Background="#D32F2F" 
+                                            Foreground="White"
+                                            Click="OnEliminarClick"
+                                            ToolTip.Tip="Eliminar Socio"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <Button Content="📥 EXPORTAR REPORTE" 
+                    HorizontalAlignment="Right"
+                    Background="#2E7D32" 
+                    Foreground="White"/>
+        </StackPanel>
+    </Border>
+</UserControl>

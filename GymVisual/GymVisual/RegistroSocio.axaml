@@ -10,9 +10,22 @@
             <TextBox x:Name="TxtNombre" Watermark="Nombre(s)"/>
             <TextBox x:Name="TxtApp" Watermark="Apellido Paterno"/>
             <TextBox x:Name="TxtApm" Watermark="Apellido Materno"/>
+            <ComboBox x:Name="CmbSexo" SelectedIndex="0">
+                <ComboBoxItem>F</ComboBoxItem>
+                <ComboBoxItem>M</ComboBoxItem>
+                <ComboBoxItem>O</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Fecha de nacimiento" FontSize="12" Foreground="#CCCCCC"/>
+            <DatePicker x:Name="DtNacimiento"/>
             <TextBox x:Name="TxtEmail" Watermark="Email"/>
             <TextBox x:Name="TxtOcupacion" Watermark="Ocupación"/>
+            <TextBox x:Name="TxtEmpresa" Watermark="Empresa"/>
             <TextBox x:Name="TxtTelefono" Watermark="Teléfono"/>
+            <TextBlock Text="Fecha de ingreso" FontSize="12" Foreground="#CCCCCC"/>
+            <DatePicker x:Name="DtIngreso"/>
+            <CheckBox x:Name="ChkActivo" Content="Activo" IsChecked="True"/>
+            <TextBox x:Name="TxtObservaciones" Watermark="Observaciones" AcceptsReturn="True" Height="80"/>
+            <TextBox x:Name="TxtIdDireccion" Watermark="ID Dirección"/>
             <Button Content="GUARDAR" Click="OnGuardarClick" HorizontalAlignment="Stretch"/>
             <TextBlock x:Name="StatusMsg" HorizontalAlignment="Center"/>
         </StackPanel>
