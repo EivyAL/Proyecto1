@@ -27,6 +27,24 @@ public partial class MenuPrincipal : Window
 
     // Los demás botones se irán llenando conforme creemos los módulos
     private void OnInicioClick(object sender, RoutedEventArgs e) { }
-    private void OnInventarioClick(object sender, RoutedEventArgs e) { }
-    private void OnCajaClick(object sender, RoutedEventArgs e) { }
+
+    private void OnPaquetesClick(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new ListaPaquetes();
+    }
+
+    private void OnInventarioClick(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new Inventario();
+    }
+
+    private void OnCajaClick(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new CajaPagos();
+    }
+
+    private void OnHistorialClick(object sender, RoutedEventArgs e)
+    {
+        MainContent.Content = new HistorialVentas();
+    }
 }

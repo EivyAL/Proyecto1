@@ -1,7 +1,19 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="GymVisual.ListaSocios">
-    
+    <UserControl.Styles>
+        <Style Selector="DataGridCell">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="DataGridRow:selected">
+            <Setter Property="Background" Value="#C8E6FF"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </UserControl.Styles>
     <Border Background="White" CornerRadius="10" Padding="20">
         <StackPanel Spacing="15">
             <TextBlock Text="GESTIÓN DE SOCIOS" 
@@ -48,10 +60,15 @@
                     <DataGridTextColumn Header="OCUPACIÓN" Binding="{Binding Ocupacion}" Width="150"/>
                     <DataGridTextColumn Header="TELÉFONO" Binding="{Binding Telefono}" Width="120"/>
                     <DataGridTextColumn Header="ESTATUS" Binding="{Binding Estatus}" Width="80"/>
-                    <DataGridTemplateColumn Header="ACCIONES" Width="150">
+                    <DataGridTemplateColumn Header="ACCIONES" Width="220">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
+                                    <Button Content="🧾" 
+                                            Background="#2196F3" 
+                                            Foreground="White"
+                                            Click="OnAsignarPlanClick"
+                                            ToolTip.Tip="Asignar plan de membresía"/>
                                     <Button Content="✏️" 
                                             Background="#FFC107" 
                                             Click="OnEditarClick"

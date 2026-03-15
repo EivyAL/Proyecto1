@@ -13,8 +13,10 @@
 
             <Button Content="🏠 Inicio" Click="OnInicioClick" Classes="MenuBtn"/>
             <Button Content="👥 Socios" Click="OnSociosClick" Classes="MenuBtn"/>
+            <Button Content="📦 Paquetes" Click="OnPaquetesClick" Classes="MenuBtn"/>
             <Button Content="📦 Inventario" Click="OnInventarioClick" Classes="MenuBtn"/>
             <Button Content="💰 Caja / Pagos" Click="OnCajaClick" Classes="MenuBtn"/>
+            <Button Content="📜 Historial" Click="OnHistorialClick" Classes="MenuBtn"/>
             
             <Border Height="300"/>
             <Button Content="🚪 Cerrar Sesión" Click="OnLogoutClick" Background="#CC0000" Foreground="White" HorizontalAlignment="Stretch"/>

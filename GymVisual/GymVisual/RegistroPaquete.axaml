@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GymVisual.RegistroPaquete"
+        Title="Registro de Paquete" Width="400" Height="420" WindowStartupLocation="CenterOwner">
+    <Border Background="White" Padding="16">
+        <StackPanel Spacing="10">
+            <TextBlock Text="DATOS DEL PAQUETE" FontWeight="Bold" HorizontalAlignment="Center" FontSize="18"/>
+
+            <TextBox x:Name="TxtClave" Watermark="Clave"/>
+            <TextBox x:Name="TxtNombre" Watermark="Nombre"/>
+            <TextBox x:Name="TxtTipo" Watermark="Tipo (e.g. Mensual, Semanal)"/>
+            <TextBox x:Name="TxtImporte" Watermark="Importe total"/>
+            <TextBox x:Name="TxtImportePorDia" Watermark="Importe por día"/>
+            <TextBox x:Name="TxtDias" Watermark="Número de días"/>
+            <TextBox x:Name="TxtMeses" Watermark="Número de meses"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <CheckBox x:Name="ChkAplicaDiasMes" Content="Aplica días en mes"/>
+            </StackPanel>
+
+            <TextBlock Text="Vigencia" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <DatePicker x:Name="DtVigenciaInicio" Width="170"/>
+                <DatePicker x:Name="DtVigenciaFin" Width="170"/>
+            </StackPanel>
+
+            <Button Content="GUARDAR" Click="OnGuardarClick" Background="#4CAF50" Foreground="White"/>
+            <TextBlock x:Name="StatusMsg" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Border>
+</Window>

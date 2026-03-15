@@ -135,6 +135,15 @@ public partial class ListaSocios : UserControl
         return idx >= 0 && !reader.IsDBNull(idx) ? reader.GetDateTime(idx) : null;
     }
 
+    private static byte[]? GetBytesOrNull(MySqlDataReader reader, string columnName)
+    {
+        var idx = GetOrdinalSafe(reader, columnName);
+        if (idx < 0 || reader.IsDBNull(idx))
+            return null;
+
+        return (byte[])reader.GetValue(idx);
+    }
+
     private static int GetOrdinalSafe(MySqlDataReader reader, string columnName)
     {
         try { return reader.GetOrdinal(columnName); }
@@ -188,6 +197,16 @@ public partial class ListaSocios : UserControl
         registro.Closed += (s, e) => CargarSocios();
     }
 
+    public void OnAsignarPlanClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var socio = (Socio)button.DataContext!;
+
+        var asignar = new AsignarPlan(socio);
+        asignar.Show();
+        asignar.Closed += (s, e) => CargarSocios();
+    }
+
     private Socio? CargarSocioCompleto(string clave)
     {
         try
@@ -208,6 +227,7 @@ public partial class ListaSocios : UserControl
             if (cols.Contains("empresa")) selectCols.Add("empresa");
             if (cols.Contains("email")) selectCols.Add("email");
             if (cols.Contains("telefono")) selectCols.Add("telefono");
+            if (cols.Contains("foto")) selectCols.Add("foto");
             if (cols.Contains("fecha_ingreso")) selectCols.Add("fecha_ingreso");
             if (cols.Contains("activo")) selectCols.Add("activo");
             if (cols.Contains("observaciones")) selectCols.Add("observaciones");
@@ -237,6 +257,7 @@ public partial class ListaSocios : UserControl
                 Empresa = GetString(reader, "empresa"),
                 Email = GetString(reader, "email"),
                 Telefono = GetString(reader, "telefono"),
+                Foto = GetBytesOrNull(reader, "foto"),
                 FechaIngreso = GetDateTimeOrNull(reader, "fecha_ingreso"),
                 Activo = cols.Contains("activo") && GetBool(reader, "activo"),
                 Observaciones = GetString(reader, "observaciones"),

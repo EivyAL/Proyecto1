@@ -10,6 +10,7 @@ public partial class RegistroSocio : Window
 {
     private bool _isEdit;
     private string _originalClave = "";
+    private byte[]? _fotoBytes;
 
     public RegistroSocio() : this(null) { }
 
@@ -18,18 +19,22 @@ public partial class RegistroSocio : Window
         InitializeComponent();
         TestConnection();
 
+        // Valores por defecto
+        DtIngreso.SelectedDate = DateTime.Now.Date;
+        ChkActivo.IsChecked = true;
+
         if (socio != null)
         {
             _isEdit = true;
             _originalClave = socio.Clave;
 
-            TxtClave!.Text = socio.Clave;
-            TxtNombre!.Text = socio.Nombre;
-            TxtApp!.Text = socio.ApellidoP;
-            TxtApm!.Text = socio.ApellidoM;
+            TxtClave.Text = socio.Clave;
+            TxtNombre.Text = socio.Nombre;
+            TxtApp.Text = socio.ApellidoP;
+            TxtApm.Text = socio.ApellidoM;
             if (!string.IsNullOrEmpty(socio.Sexo))
             {
-                foreach (var item in CmbSexo!.Items)
+                foreach (var item in CmbSexo.Items)
                 {
                     if (item is ComboBoxItem cbItem && cbItem.Content?.ToString() == socio.Sexo)
                     {
@@ -38,17 +43,20 @@ public partial class RegistroSocio : Window
                     }
                 }
             }
-            DtNacimiento!.SelectedDate = socio.FechaNacimiento;
-            TxtEmail!.Text = socio.Email;
-            TxtOcupacion!.Text = socio.Ocupacion;
-            TxtEmpresa!.Text = socio.Empresa;
-            TxtTelefono!.Text = socio.Telefono;
-            DtIngreso!.SelectedDate = socio.FechaIngreso;
-            ChkActivo!.IsChecked = socio.Activo;
-            TxtObservaciones!.Text = socio.Observaciones;
-            TxtIdDireccion!.Text = socio.IdDireccion?.ToString() ?? "";
+            DtNacimiento.SelectedDate = socio.FechaNacimiento;
+            TxtEmail.Text = socio.Email;
+            TxtOcupacion.Text = socio.Ocupacion;
+            TxtEmpresa.Text = socio.Empresa;
+            TxtTelefono.Text = socio.Telefono;
+            DtIngreso.SelectedDate = socio.FechaIngreso;
+            ChkActivo.IsChecked = socio.Activo;
+            TxtObservaciones.Text = socio.Observaciones;
+            TxtIdDireccion.Text = socio.IdDireccion?.ToString() ?? "";
+            _fotoBytes = socio.Foto;
+            if (_fotoBytes != null && _fotoBytes.Length > 0)
+                LoadFoto(_fotoBytes);
 
-            TxtClave!.IsEnabled = false;
+            TxtClave.IsEnabled = false;
         }
     }
 
@@ -75,10 +83,11 @@ public partial class RegistroSocio : Window
                 ["fecha_ingreso"] = DtIngreso!.SelectedDate ?? (object)DBNull.Value,
                 ["activo"] = ChkActivo!.IsChecked == true ? 1 : 0,
                 ["observaciones"] = TxtObservaciones!.Text?.Trim() ?? "",
-                ["id_direccion"] = int.TryParse(TxtIdDireccion!.Text, out var idDir) ? idDir : (object)DBNull.Value
+                ["id_direccion"] = int.TryParse(TxtIdDireccion!.Text, out var idDir) ? idDir : (object)DBNull.Value,
+                ["foto"] = _fotoBytes ?? (object)DBNull.Value
             };
 
-            string fkWarning = null;
+            string? fkWarning = null;
             if (values.TryGetValue("id_direccion", out var idDirVal) && idDirVal is int idDirInt)
             {
                 if (!ValidateForeignKey(conn, "socios", "id_direccion", idDirInt, out fkWarning))
@@ -168,7 +177,7 @@ public partial class RegistroSocio : Window
         }
     }
 
-    private bool ValidateForeignKey(MySqlConnection conn, string table, string column, int value, out string warningMessage)
+    private bool ValidateForeignKey(MySqlConnection conn, string table, string column, int value, out string? warningMessage)
     {
         warningMessage = null;
         try
@@ -239,7 +248,36 @@ public partial class RegistroSocio : Window
     private void LimpiarCampos()
     {
         TxtClave.Text = TxtNombre.Text = TxtApp.Text = TxtApm.Text = TxtEmail.Text = TxtOcupacion.Text = TxtTelefono.Text = "";
+        TxtEmpresa.Text = TxtObservaciones.Text = TxtIdDireccion.Text = "";
+        DtIngreso.SelectedDate = DateTime.Now.Date;
+        ChkActivo.IsChecked = true;
         TxtClave.IsEnabled = true;
+        _fotoBytes = null;
+        ImgFoto.Source = null;
         _isEdit = false;
     }
-} 
+
+    private void LoadFoto(byte[] bytes)
+    {
+        using var stream = new System.IO.MemoryStream(bytes);
+        ImgFoto.Source = new Avalonia.Media.Imaging.Bitmap(stream);
+    }
+
+    public async void OnSeleccionarFotoClick(object sender, RoutedEventArgs e)
+    {
+#pragma warning disable CS0618 // OpenFileDialog is obsolete in newer Avalonia versions; using for compatibility.
+        var dialog = new OpenFileDialog();
+        dialog.Filters.Add(new FileDialogFilter { Name = "Imágenes", Extensions = { "png", "jpg", "jpeg" } });
+        dialog.AllowMultiple = false;
+
+        var result = await dialog.ShowAsync(this);
+#pragma warning restore CS0618
+        if (result != null && result.Length > 0)
+        {
+            var path = result[0];
+            _fotoBytes = await System.IO.File.ReadAllBytesAsync(path);
+            LoadFoto(_fotoBytes);
+        }
+    }
+}
+ 

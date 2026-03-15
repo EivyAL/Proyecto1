@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GymVisual.ListaPaquetes">
+    <UserControl.Styles>
+        <Style Selector="DataGridCell">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="DataGridRow:selected">
+            <Setter Property="Background" Value="#C8E6FF"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Border Background="White" CornerRadius="10" Padding="20">
+        <StackPanel Spacing="15">
+            <TextBlock Text="CATÁLOGO DE PAQUETES" 
+                       FontSize="22" 
+                       FontWeight="Bold" 
+                       Foreground="#1A1A1A" 
+                       HorizontalAlignment="Center"/>
+            <Separator Background="#E0E0E0"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="➕ NUEVO PAQUETE" 
+                        Background="#4CAF50" 
+                        Foreground="White" 
+                        Padding="15,5" 
+                        Click="OnNuevoPaqueteClick"/>
+            </StackPanel>
+
+            <DataGrid x:Name="GridPaquetes" 
+                      Height="450" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      GridLinesVisibility="All" 
+                      BorderThickness="1" 
+                      BorderBrush="#D0D0D0"
+                      Foreground="Black"
+                      Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CLAVE" Binding="{Binding Clave}" Width="80"/>
+                    <DataGridTextColumn Header="NOMBRE" Binding="{Binding Nombre}" Width="*"/>
+                    <DataGridTextColumn Header="TIPO" Binding="{Binding Tipo}" Width="120"/>
+                    <DataGridTextColumn Header="PRECIO" Binding="{Binding ImporteTotal, StringFormat=\{0:C\}}" Width="100"/>
+                    <DataGridTextColumn Header="$/DÍA" Binding="{Binding ImportePorDia, StringFormat=\{0:C\}}" Width="100"/>
+                    <DataGridTextColumn Header="DÍAS" Binding="{Binding NumeroDias}" Width="70"/>
+                    <DataGridTextColumn Header="MESES" Binding="{Binding NumeroMeses}" Width="70"/>
+                    <DataGridTextColumn Header="APLICA DÍAS MES" Binding="{Binding AplicaDiasMes}" Width="120"/>
+                    <DataGridTextColumn Header="VIG. INI" Binding="{Binding VigenciaInicio, StringFormat=dd-MM-yyyy}" Width="110"/>
+                    <DataGridTextColumn Header="VIG. FIN" Binding="{Binding VigenciaFin, StringFormat=dd-MM-yyyy}" Width="110"/>
+                    <DataGridTemplateColumn Header="ACCIONES" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="✏️" 
+                                        Background="#FFC107" 
+                                        Click="OnEditarPaqueteClick"
+                                        ToolTip.Tip="Editar paquete"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Border>
+</UserControl>

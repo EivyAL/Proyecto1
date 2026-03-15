@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GymVisual.Inventario">
+
+    <UserControl.Styles>
+        <Style Selector="DataGridRow">
+            <Setter Property="Background" Value="{Binding StockBrush}"/>
+        </Style>
+        <Style Selector="DataGridCell">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#F7F7F7"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="16" RowDefinitions="Auto, *">
+        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
+            <TextBlock Text="Código de Barras" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="TxtCodigoBarras" Width="250" Watermark="Escanea o escribe aquí" KeyDown="OnCodigoBarrasKeyDown"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" ColumnDefinitions="1.6*, 1.4*" ColumnSpacing="12" Margin="0,12,0,0">
+            <Border Grid.Column="0" BorderBrush="#CCC" BorderThickness="1" CornerRadius="8" Padding="10">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Datos del producto" FontSize="18" FontWeight="Bold"/>
+
+                    <TextBlock Text="Clave" FontWeight="Bold"/>
+                    <TextBox x:Name="TxtClave"/>
+                    <TextBlock Text="Clave interna (ej: P-001)." FontSize="10" Foreground="#777"/>
+
+                    <TextBlock Text="Código de barras" FontWeight="Bold"/>
+                    <TextBox x:Name="TxtCodigo"/>
+                    <TextBlock Text="Ingrese el código de barras o escanéelo." FontSize="10" Foreground="#777"/>
+
+                    <TextBlock Text="Descripción" FontWeight="Bold"/>
+                    <TextBox x:Name="TxtDescripcion"/>
+                    <TextBlock Text="Nombre o descripción del producto." FontSize="10" Foreground="#777"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Costo" FontWeight="Bold"/>
+                            <TextBox x:Name="TxtCosto" Width="120"/>
+                            <TextBlock Text="Costo de compra." FontSize="10" Foreground="#777"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Precio venta" FontWeight="Bold"/>
+                            <TextBox x:Name="TxtPrecio" Width="120"/>
+                            <TextBlock Text="Debe ser mayor al costo." FontSize="10" Foreground="#777"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="IVA" FontWeight="Bold"/>
+                            <TextBox x:Name="TxtIva" Width="120"/>
+                            <TextBlock Text="Ej: 16%, Exento." FontSize="10" Foreground="#777"/>
+                        </StackPanel>
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Stock" FontWeight="Bold"/>
+                            <TextBox x:Name="TxtStock" Width="120"/>
+                            <TextBlock Text="Unidades existentes." FontSize="10" Foreground="#777"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock Text="Departamento" FontWeight="Bold"/>
+                    <ComboBox x:Name="CmbDepartamento">
+                        <ComboBoxItem>Bebidas</ComboBoxItem>
+                        <ComboBoxItem>Suplementos</ComboBoxItem>
+                        <ComboBoxItem>Alimentos</ComboBoxItem>
+                        <ComboBoxItem>Souvenirs</ComboBoxItem>
+                    </ComboBox>
+
+                    <Button Content="Guardar" Background="#2196F3" Foreground="White" Click="OnGuardarProductoClick"/>
+                    <TextBlock x:Name="StatusMsg" Foreground="#d32f2f"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" BorderBrush="#CCC" BorderThickness="1" CornerRadius="8" Padding="10">
+                <Grid RowDefinitions="Auto, Auto, *">
+                    <TextBlock Text="Stock de productos" FontSize="18" FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8" Grid.Row="1" Margin="0,8,0,0">
+                        <Button Content="Nuevo producto" Background="#4CAF50" Foreground="White" Click="OnNuevoProductoClick"/>
+                        <Button Content="Editar producto" Background="#FFC107" Foreground="Black" Click="OnEditarProductoClick"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="GridProductos" Grid.Row="2" AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="OnProductSelectionChanged" Margin="0,12,0,0" VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Clave" Binding="{Binding Clave}" Width="80"/>
+                            <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Width="*"/>
+                            <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

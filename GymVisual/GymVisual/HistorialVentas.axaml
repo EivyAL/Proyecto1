@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="GymVisual.HistorialVentas">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="16" RowDefinitions="Auto, *, Auto" ColumnDefinitions="*">
+        <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,12">
+            <Grid ColumnDefinitions="Auto, Auto, Auto" ColumnSpacing="12" VerticalAlignment="Center">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Fecha" FontWeight="Bold"/>
+                    <DatePicker x:Name="DateFiltro"/>
+                </StackPanel>
+                <Button Content="Buscar" Width="120" Background="#2196F3" Click="OnBuscarClick"/>
+                <Button Content="Actualizar" Width="120" Background="#4CAF50" Click="OnActualizarClick"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="#CCC" BorderThickness="1" CornerRadius="8" Padding="12">
+            <DataGrid x:Name="GridVentas" AutoGenerateColumns="False" SelectionMode="Single" Height="420">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Folio" Binding="{Binding Id}" Width="70"/>
+                    <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}" Width="200"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}{0:C}}" Width="110"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=dd/MM/yyyy HH:mm}" Width="160"/>
+                    <DataGridTemplateColumn Header="" Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="🗑️" Background="#D32F2F" Click="OnEliminarVentaClick"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="Seleccione una venta y pulse 🗑️ para anularla (resta stock}" Foreground="#555" Margin="0,12,0,0"/>
+    </Grid>
+</UserControl>

@@ -1,33 +1,140 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="GymVisual.RegistroSocio"
-        Title="Registro de Nuevo Socio" 
-        Width="500" Height="600">
+        Title="Registro de Nuevo Socio"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="#121212">
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+        </Style>
+        <Style Selector="DatePicker">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#222"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+        </Style>
+    </Window.Styles>
+
     <ScrollViewer>
-        <StackPanel Margin="20" Spacing="10">
-            <TextBlock Text="DATOS PERSONALES" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <TextBox x:Name="TxtClave" Watermark="Clave Única"/>
-            <TextBox x:Name="TxtNombre" Watermark="Nombre(s)"/>
-            <TextBox x:Name="TxtApp" Watermark="Apellido Paterno"/>
-            <TextBox x:Name="TxtApm" Watermark="Apellido Materno"/>
-            <ComboBox x:Name="CmbSexo" SelectedIndex="0">
-                <ComboBoxItem>F</ComboBoxItem>
-                <ComboBoxItem>M</ComboBoxItem>
-                <ComboBoxItem>O</ComboBoxItem>
-            </ComboBox>
-            <TextBlock Text="Fecha de nacimiento" FontSize="12" Foreground="#CCCCCC"/>
-            <DatePicker x:Name="DtNacimiento"/>
-            <TextBox x:Name="TxtEmail" Watermark="Email"/>
-            <TextBox x:Name="TxtOcupacion" Watermark="Ocupación"/>
-            <TextBox x:Name="TxtEmpresa" Watermark="Empresa"/>
-            <TextBox x:Name="TxtTelefono" Watermark="Teléfono"/>
-            <TextBlock Text="Fecha de ingreso" FontSize="12" Foreground="#CCCCCC"/>
-            <DatePicker x:Name="DtIngreso"/>
-            <CheckBox x:Name="ChkActivo" Content="Activo" IsChecked="True"/>
-            <TextBox x:Name="TxtObservaciones" Watermark="Observaciones" AcceptsReturn="True" Height="80"/>
-            <TextBox x:Name="TxtIdDireccion" Watermark="ID Dirección"/>
-            <Button Content="GUARDAR" Click="OnGuardarClick" HorizontalAlignment="Stretch"/>
-            <TextBlock x:Name="StatusMsg" HorizontalAlignment="Center"/>
-        </StackPanel>
+        <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*, 240">
+
+            <TextBlock Text="DATOS DE SOCIO" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+
+            <!-- Formulario -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Spacing="8">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Clave" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtClave" Width="180" Watermark="Ej: GF-001"/>
+                        <TextBlock Text="Código interno único (ej: GF-001)" FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Nombre(s)" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtNombre" Width="320" Watermark="Nombre(s)"/>
+                        <TextBlock Text="Nombre completo del socio." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Apellido Paterno" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtApp" Width="240" Watermark="Apellido Paterno"/>
+                        <TextBlock Text="Apellido paterno del socio." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Apellido Materno" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtApm" Width="240" Watermark="Apellido Materno"/>
+                        <TextBlock Text="Apellido materno del socio." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Sexo" FontWeight="Bold"/>
+                        <ComboBox x:Name="CmbSexo" Width="100" SelectedIndex="0">
+                            <ComboBoxItem>F</ComboBoxItem>
+                            <ComboBoxItem>M</ComboBoxItem>
+                            <ComboBoxItem>O</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Género del socio." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Fecha de nacimiento" FontWeight="Bold"/>
+                        <DatePicker x:Name="DtNacimiento" Width="200"/>
+                        <TextBlock Text="Fecha de nacimiento (DD/MM/AAAA)." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Teléfono" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtTelefono" Width="180" Watermark="Teléfono"/>
+                        <TextBlock Text="Ej: 8331234567" FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Email" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtEmail" Width="260" Watermark="Email"/>
+                        <TextBlock Text="Correo de contacto." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Ocupación" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtOcupacion" Width="240" Watermark="Ocupación"/>
+                        <TextBlock Text="Trabajo o actividad principal." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Empresa" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtEmpresa" Width="260" Watermark="Empresa"/>
+                        <TextBlock Text="Empresa del socio (si aplica)." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="ID Dirección" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtIdDireccion" Width="240" Watermark="ID Dirección"/>
+                        <TextBlock Text="ID de tabla de direcciones (opcional)." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Fecha de ingreso" FontWeight="Bold"/>
+                        <DatePicker x:Name="DtIngreso" Width="200"/>
+                        <TextBlock Text="Fecha en que se registró el socio." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4" VerticalAlignment="Bottom">
+                        <CheckBox x:Name="ChkActivo" Content="Activo" VerticalAlignment="Center"/>
+                        <TextBlock Text="Marca si el socio está vigente." FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Text="Observaciones" FontWeight="Bold"/>
+                <TextBox x:Name="TxtObservaciones" AcceptsReturn="True" Height="90" Watermark="Notas internas, condiciones, comentarios"/>
+            </StackPanel>
+
+            <!-- Foto -->
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="#CCC" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,0">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Foto" FontWeight="Bold"/>
+                    <Image x:Name="ImgFoto" Width="200" Height="200" Stretch="UniformToFill"/>
+                    <Button Content="Seleccionar imagen" Click="OnSeleccionarFotoClick"/>
+                </StackPanel>
+            </Border>
+
+            <Button Grid.Row="6" Grid.ColumnSpan="2" Content="GUARDAR" Click="OnGuardarClick" HorizontalAlignment="Stretch" Height="40" Margin="0,16,0,0"/>
+            <TextBlock x:Name="StatusMsg" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,12,0,0"/>
+        </Grid>
     </ScrollViewer>
 </Window>

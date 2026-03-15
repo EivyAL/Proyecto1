@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GymVisual.AsignarPlan"
+        Title="Asignar Plan de Membresía" Width="450" Height="380" WindowStartupLocation="CenterOwner">
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#222"/>
+        </Style>
+        <Style Selector="ComboBox, ComboBoxItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="DatePicker">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Styles>
+
+    <Border Background="White" Padding="20">
+        <StackPanel Spacing="12">
+            <TextBlock Text="ASIGNAR PLAN" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Socio" FontWeight="Bold"/>
+            <TextBlock x:Name="TxtSocio" Text="" FontSize="14" Foreground="#333"/>
+
+            <TextBlock Text="Paquete" FontWeight="Bold"/>
+            <ComboBox x:Name="CmbPaquetes" Width="360"/>
+
+            <TextBlock Text="Fecha de inicio" FontWeight="Bold"/>
+            <DatePicker x:Name="DtInicio" />
+
+            <Button Content="CONFIRMAR" Click="OnConfirmarClick" HorizontalAlignment="Stretch" Background="#4CAF50" Foreground="White"/>
+
+            <TextBlock x:Name="StatusMsg" Foreground="#d32f2f" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Border>
+
+</Window>
