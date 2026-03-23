@@ -10,6 +10,14 @@
         <Style Selector="Button">
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+        </Style>
+        <Style Selector="DatePicker">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid Margin="16" RowDefinitions="Auto, *, Auto" ColumnDefinitions="*">

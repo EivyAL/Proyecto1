@@ -37,10 +37,14 @@ public partial class ListaSocios : UserControl
 
             var selectCols = new List<string>();
             if (cols.Contains("id_socio")) selectCols.Add("id_socio");
+            else if (cols.Contains("id")) selectCols.Add("id");
             if (cols.Contains("clave")) selectCols.Add("clave");
+            else if (cols.Contains("clave_socio")) selectCols.Add("clave_socio");
             if (cols.Contains("nombre")) selectCols.Add("nombre");
             if (cols.Contains("apellido_paterno")) selectCols.Add("apellido_paterno");
+            else if (cols.Contains("apellido")) selectCols.Add("apellido");
             if (cols.Contains("apellido_materno")) selectCols.Add("apellido_materno");
+            else if (cols.Contains("apellido_m")) selectCols.Add("apellido_m");
             if (cols.Contains("sexo")) selectCols.Add("sexo");
             if (cols.Contains("fecha_nacimiento")) selectCols.Add("fecha_nacimiento");
             if (cols.Contains("ocupacion")) selectCols.Add("ocupacion");
@@ -51,7 +55,9 @@ public partial class ListaSocios : UserControl
             if (cols.Contains("observaciones")) selectCols.Add("observaciones");
             if (cols.Contains("id_direccion")) selectCols.Add("id_direccion");
             if (cols.Contains("telefono")) selectCols.Add("telefono");
-
+            if (cols.Contains("telefono_socio")) selectCols.Add("telefono_socio");
+            if (cols.Contains("telefono_emergencia_socio")) selectCols.Add("telefono_emergencia_socio");
+            if (cols.Contains("telefono_emergencia")) selectCols.Add("telefono_emergencia");
             if (selectCols.Count == 0)
                 throw new InvalidOperationException("No se encontraron columnas válidas en la tabla 'socios'.");
 
@@ -77,11 +83,11 @@ public partial class ListaSocios : UserControl
             {
                 var socio = new Socio
                 {
-                    IdSocio = GetIntOrDefault(reader, "id_socio"),
-                    Clave = GetString(reader, "clave"),
+                    IdSocio = cols.Contains("id_socio") ? GetIntOrDefault(reader, "id_socio") : GetIntOrDefault(reader, "id"),
+                    Clave = cols.Contains("clave") ? GetString(reader, "clave") : GetString(reader, "clave_socio"),
                     Nombre = GetString(reader, "nombre"),
-                    ApellidoP = GetString(reader, "apellido_paterno"),
-                    ApellidoM = GetString(reader, "apellido_materno"),
+                    ApellidoP = cols.Contains("apellido_paterno") ? GetString(reader, "apellido_paterno") : GetString(reader, "apellido"),
+                    ApellidoM = cols.Contains("apellido_materno") ? GetString(reader, "apellido_materno") : GetString(reader, "apellido_m"),
                     Sexo = GetString(reader, "sexo"),
                     FechaNacimiento = GetDateTimeOrNull(reader, "fecha_nacimiento"),
                     Ocupacion = GetString(reader, "ocupacion"),
@@ -91,7 +97,8 @@ public partial class ListaSocios : UserControl
                     Activo = cols.Contains("activo") && GetBool(reader, "activo"),
                     Observaciones = GetString(reader, "observaciones"),
                     IdDireccion = GetIntOrNull(reader, "id_direccion"),
-                    Telefono = GetString(reader, "telefono"),
+                    Telefono = cols.Contains("telefono_socio") ? GetString(reader, "telefono_socio") : GetString(reader, "telefono"),
+                    TelefonoEmergencia = cols.Contains("telefono_emergencia_socio") ? GetString(reader, "telefono_emergencia_socio") : GetString(reader, "telefono_emergencia"),
                     Estatus = cols.Contains("activo") && GetBool(reader, "activo") ? "Activo" : "Inactivo"
                 };
                 lista.Add(socio);
@@ -227,6 +234,9 @@ public partial class ListaSocios : UserControl
             if (cols.Contains("empresa")) selectCols.Add("empresa");
             if (cols.Contains("email")) selectCols.Add("email");
             if (cols.Contains("telefono")) selectCols.Add("telefono");
+            if (cols.Contains("telefono_socio")) selectCols.Add("telefono_socio");
+            if (cols.Contains("telefono_emergencia_socio")) selectCols.Add("telefono_emergencia_socio");
+            if (cols.Contains("telefono_emergencia")) selectCols.Add("telefono_emergencia");
             if (cols.Contains("foto")) selectCols.Add("foto");
             if (cols.Contains("fecha_ingreso")) selectCols.Add("fecha_ingreso");
             if (cols.Contains("activo")) selectCols.Add("activo");
@@ -246,17 +256,18 @@ public partial class ListaSocios : UserControl
 
             return new Socio
             {
-                IdSocio = GetIntOrDefault(reader, "id_socio"),
-                Clave = GetString(reader, "clave"),
+                IdSocio = cols.Contains("id_socio") ? GetIntOrDefault(reader, "id_socio") : GetIntOrDefault(reader, "id"),
+                Clave = cols.Contains("clave") ? GetString(reader, "clave") : GetString(reader, "clave_socio"),
                 Nombre = GetString(reader, "nombre"),
-                ApellidoP = GetString(reader, "apellido_paterno"),
-                ApellidoM = GetString(reader, "apellido_materno"),
+                ApellidoP = cols.Contains("apellido_paterno") ? GetString(reader, "apellido_paterno") : GetString(reader, "apellido"),
+                ApellidoM = cols.Contains("apellido_materno") ? GetString(reader, "apellido_materno") : GetString(reader, "apellido_m"),
                 Sexo = GetString(reader, "sexo"),
                 FechaNacimiento = GetDateTimeOrNull(reader, "fecha_nacimiento"),
                 Ocupacion = GetString(reader, "ocupacion"),
                 Empresa = GetString(reader, "empresa"),
                 Email = GetString(reader, "email"),
-                Telefono = GetString(reader, "telefono"),
+                Telefono = cols.Contains("telefono_socio") ? GetString(reader, "telefono_socio") : GetString(reader, "telefono"),
+                TelefonoEmergencia = cols.Contains("telefono_emergencia_socio") ? GetString(reader, "telefono_emergencia_socio") : GetString(reader, "telefono_emergencia"),
                 Foto = GetBytesOrNull(reader, "foto"),
                 FechaIngreso = GetDateTimeOrNull(reader, "fecha_ingreso"),
                 Activo = cols.Contains("activo") && GetBool(reader, "activo"),

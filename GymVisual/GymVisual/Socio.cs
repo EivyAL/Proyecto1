@@ -19,6 +19,11 @@ public class Socio
     public string Observaciones { get; set; } = "";
     public int? IdDireccion { get; set; }
     public string Telefono { get; set; } = "";
+    public string TelefonoEmergencia { get; set; } = "";
     public byte[]? Foto { get; set; }
     public string Estatus { get; set; } = "";
+
+    public string DisplayName => $"{Clave} - {Nombre} {ApellidoP} {ApellidoM}".Trim();
+
+    public override string ToString() => DisplayName;
 }

@@ -52,6 +52,7 @@ public partial class RegistroSocio : Window
             ChkActivo.IsChecked = socio.Activo;
             TxtObservaciones.Text = socio.Observaciones;
             TxtIdDireccion.Text = socio.IdDireccion?.ToString() ?? "";
+            TxtTelefonoEmergencia.Text = socio.TelefonoEmergencia;
             _fotoBytes = socio.Foto;
             if (_fotoBytes != null && _fotoBytes.Length > 0)
                 LoadFoto(_fotoBytes);
@@ -68,6 +69,9 @@ public partial class RegistroSocio : Window
             conn.Open();
 
             var columns = GetSociosColumns(conn);
+            var phoneColumn = columns.Contains("telefono_socio") ? "telefono_socio" : "telefono";
+            var phoneEmergColumn = columns.Contains("telefono_emergencia_socio") ? "telefono_emergencia_socio" : "telefono_emergencia";
+
             var values = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["clave"] = TxtClave!.Text?.Trim() ?? "",
@@ -79,7 +83,8 @@ public partial class RegistroSocio : Window
                 ["email"] = TxtEmail!.Text?.Trim() ?? "",
                 ["ocupacion"] = TxtOcupacion!.Text?.Trim() ?? "",
                 ["empresa"] = TxtEmpresa!.Text?.Trim() ?? "",
-                ["telefono"] = TxtTelefono!.Text?.Trim() ?? "",
+                [phoneColumn] = TxtTelefono!.Text?.Trim() ?? "",
+                [phoneEmergColumn] = TxtTelefonoEmergencia!.Text?.Trim() ?? "",
                 ["fecha_ingreso"] = DtIngreso!.SelectedDate ?? (object)DBNull.Value,
                 ["activo"] = ChkActivo!.IsChecked == true ? 1 : 0,
                 ["observaciones"] = TxtObservaciones!.Text?.Trim() ?? "",

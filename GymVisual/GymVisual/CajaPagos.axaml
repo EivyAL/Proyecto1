@@ -6,6 +6,10 @@
         <Style Selector="TextBlock">
             <Setter Property="Foreground" Value="Black"/>
         </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+        </Style>
         <Style Selector="TextBox">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="White"/>
@@ -14,33 +18,55 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="White"/>
         </Style>
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
     </UserControl.Styles>
 
-    <Grid Margin="16" RowDefinitions="Auto, *, Auto" ColumnDefinitions="*">
+    <Grid Background="#f2f4f6" Margin="16" RowDefinitions="Auto, *, Auto" ColumnDefinitions="*">
         <!-- Superior: Selección de ítems -->
         <Border BorderBrush="#CCC" BorderThickness="1" CornerRadius="8" Padding="12" Margin="0,0,0,12">
-            <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto" ColumnSpacing="12" VerticalAlignment="Center">
+            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="12" VerticalAlignment="Top">
                 <StackPanel Grid.Column="0" Spacing="4">
                     <TextBlock Text="Socio" FontWeight="Bold"/>
-                    <ComboBox x:Name="CmbSocio" Width="250"/>
+                    <ComboBox x:Name="CmbSocio" Width="250">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Spacing="4">
                     <TextBlock Text="Plan / Paquete" FontWeight="Bold"/>
-                    <ComboBox x:Name="CmbPaquete" Width="250"/>
+                    <ComboBox x:Name="CmbPaquete" Width="250">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="Agregar Paquete" Width="250" Height="32" Background="#4CAF50" Foreground="White" Click="OnAgregarPaqueteClick"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Spacing="4">
                     <TextBlock Text="Producto" FontWeight="Bold"/>
-                    <ComboBox x:Name="CmbProducto" Width="250"/>
+                    <ComboBox x:Name="CmbProducto" Width="250" SelectionChanged="OnProductoSelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock x:Name="TxtProductoCantidad" Text="Producto / 1" FontSize="14" FontWeight="Bold" Foreground="#333"/>
+                    <Button Content="Agregar Producto" Width="250" Height="32" Background="#4CAF50" Foreground="White" Click="OnAgregarProductoClick"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="3" Spacing="4">
                     <TextBlock Text="Cantidad" FontWeight="Bold"/>
-                    <NumericUpDown x:Name="NumCantidad" Minimum="1" Value="1" Width="80"/>
+                    <NumericUpDown x:Name="NumCantidad" Minimum="1" Value="1" Width="100" Height="36" VerticalAlignment="Top" ValueChanged="OnCantidadValueChanged"/>
                 </StackPanel>
-
-                <Button Grid.Column="4" Content="Agregar" Width="130" Height="40" Background="#4CAF50" Foreground="White" Click="OnAgregarClick"/>
             </Grid>
         </Border>
 

@@ -38,6 +38,9 @@ public static class Database
             ocupacion VARCHAR(200) DEFAULT NULL,
             empresa VARCHAR(200) DEFAULT NULL,
             telefono VARCHAR(100) DEFAULT NULL,
+            telefono_socio VARCHAR(100) DEFAULT NULL,
+            telefono_emergencia VARCHAR(100) DEFAULT NULL,
+            telefono_emergencia_socio VARCHAR(100) DEFAULT NULL,
             fecha_ingreso DATE NULL,
             activo TINYINT(1) NOT NULL DEFAULT 1,
             observaciones TEXT DEFAULT NULL,
@@ -46,6 +49,15 @@ public static class Database
             estatus VARCHAR(100) DEFAULT NULL
         )";
         cmd.ExecuteNonQuery();
+
+        // Asegúrate de que columnas de compatibilidad existan en caso de esquemas antiguos
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS id_socio INT NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS clave VARCHAR(100) NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS apellido_paterno VARCHAR(200) NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS apellido_materno VARCHAR(200) NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS telefono_socio VARCHAR(100) DEFAULT NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS telefono_emergencia_socio VARCHAR(100) DEFAULT NULL"; cmd.ExecuteNonQuery(); } catch { }
+        try { cmd.CommandText = @"ALTER TABLE socios ADD COLUMN IF NOT EXISTS telefono_emergencia VARCHAR(100) DEFAULT NULL"; cmd.ExecuteNonQuery(); } catch { }
 
         // Paquetes / membresías
         cmd.CommandText = @"CREATE TABLE IF NOT EXISTS paquetes (

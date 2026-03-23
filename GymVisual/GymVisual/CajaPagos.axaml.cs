@@ -324,28 +324,77 @@ namespace GymVisual
 
             if (CmbPaquete.SelectedItem is Paquete paquete)
             {
-                AddToCart(new CartItem
-                {
-                    Tipo = "Paquete",
-                    Clave = paquete.Clave,
-                    Descripcion = paquete.Nombre,
-                    Cantidad = cantidad,
-                    Precio = paquete.ImporteTotal,
-                    PaqueteId = paquete.Id
-                });
+                AddItemPaquete(paquete, cantidad);
             }
             else if (CmbProducto.SelectedItem is Product prod)
             {
-                AddToCart(new CartItem
-                {
-                    Tipo = "Producto",
-                    Clave = prod.Clave,
-                    Descripcion = prod.Descripcion,
-                    Cantidad = cantidad,
-                    Precio = prod.PrecioVenta,
-                    ProductoId = prod.IdProducto
-                });
+                AddItemProducto(prod, cantidad);
             }
+        }
+
+        private void OnAgregarPaqueteClick(object? sender, RoutedEventArgs e)
+        {
+            var cantidad = (int)(NumCantidad.Value ?? 1);
+            if (CmbPaquete.SelectedItem is Paquete paquete)
+                AddItemPaquete(paquete, cantidad);
+            UpdateProductoCantidadTexto();
+        }
+
+        private void OnAgregarProductoClick(object? sender, RoutedEventArgs e)
+        {
+            var cantidad = (int)(NumCantidad.Value ?? 1);
+            if (CmbProducto.SelectedItem is Product prod)
+                AddItemProducto(prod, cantidad);
+            UpdateProductoCantidadTexto();
+        }
+
+        private void OnProductoSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            UpdateProductoCantidadTexto();
+        }
+
+        private void OnCantidadValueChanged(object? sender, NumericUpDownValueChangedEventArgs e)
+        {
+            UpdateProductoCantidadTexto();
+        }
+
+        private void UpdateProductoCantidadTexto()
+        {
+            if (CmbProducto.SelectedItem is Product prod)
+            {
+                var cantidad = (int)(NumCantidad.Value ?? 1);
+                TxtProductoCantidad.Text = $"{prod.Descripcion} / {cantidad}";
+            }
+            else
+            {
+                TxtProductoCantidad.Text = "Producto / 1";
+            }
+        }
+
+        private void AddItemPaquete(Paquete paquete, int cantidad)
+        {
+            AddToCart(new CartItem
+            {
+                Tipo = "Paquete",
+                Clave = paquete.Clave,
+                Descripcion = paquete.Nombre,
+                Cantidad = cantidad,
+                Precio = paquete.ImporteTotal,
+                PaqueteId = paquete.Id
+            });
+        }
+
+        private void AddItemProducto(Product prod, int cantidad)
+        {
+            AddToCart(new CartItem
+            {
+                Tipo = "Producto",
+                Clave = prod.Clave,
+                Descripcion = prod.Descripcion,
+                Cantidad = cantidad,
+                Precio = prod.PrecioVenta,
+                ProductoId = prod.IdProducto
+            });
         }
 
         private void AddToCart(CartItem item)

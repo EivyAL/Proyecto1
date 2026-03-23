@@ -19,5 +19,7 @@ public class Paquete
     public DateTime? VigenciaInicio { get; set; }
     public DateTime? VigenciaFin { get; set; }
 
-    public override string ToString() => $"{Nombre} ({Clave}) - {ImporteTotal:C} / {NumeroDias} días";
+    public string DisplayName => $"{Nombre} ({Clave}) - {ImporteTotal:C} / {NumeroDias} días";
+
+    public override string ToString() => DisplayName;
 }

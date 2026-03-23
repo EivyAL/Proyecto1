@@ -28,6 +28,9 @@ public class Product : INotifyPropertyChanged
     }
     public string Departamento { get; set; } = "";
 
+    public string DisplayName => $"{Clave} - {Descripcion} ({Stock} en stock)";
+    public override string ToString() => DisplayName;
+
     public IBrush StockBrush => Stock < 5 ? Brushes.IndianRed : Brushes.LightGreen;
 
     public event PropertyChangedEventHandler? PropertyChanged;

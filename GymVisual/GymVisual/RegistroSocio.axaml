@@ -28,7 +28,7 @@
     </Window.Styles>
 
     <ScrollViewer>
-        <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*, 240">
+        <Grid Margin="20" HorizontalAlignment="Center" MaxWidth="980" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*, 240">
 
             <TextBlock Text="DATOS DE SOCIO" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
 
@@ -79,6 +79,11 @@
                         <TextBlock Text="Teléfono" FontWeight="Bold"/>
                         <TextBox x:Name="TxtTelefono" Width="180" Watermark="Teléfono"/>
                         <TextBlock Text="Ej: 8331234567" FontSize="10" Foreground="#AAA"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Teléfono de emergencia" FontWeight="Bold"/>
+                        <TextBox x:Name="TxtTelefonoEmergencia" Width="180" Watermark="Teléfono de emergencia"/>
+                        <TextBlock Text="Ej: 8331234568" FontSize="10" Foreground="#AAA"/>
                     </StackPanel>
                 </StackPanel>
 
